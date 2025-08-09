@@ -37,6 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Apps locales
+    'users',
+    'posts',
+    'cards',
+    'notifications',
+    'messaging',
+    'search',
 ]
 
 MIDDLEWARE = [
@@ -74,8 +82,12 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'socialtcg',
+        'USER': 'postgres',
+        'PASSWORD': '123456',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -120,3 +132,11 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Rutas de archivos estáticos (CSS, JS, imágenes fijas)
+STATICFILES_DIRS = [BASE_DIR / 'static']  # Directorio durante desarrollo
+STATIC_ROOT = BASE_DIR / 'staticfiles'   # Para producción (usado con collectstatic)
+
+# Archivos subidos por usuarios (fotos de perfiles y cartas)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

@@ -62,7 +62,9 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'templates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -88,6 +90,14 @@ DATABASES = {
         'PASSWORD': '123456',
         'HOST': 'localhost',
         'PORT': '5432',
+    },
+    'yugioh_db': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db/yugioh.db',  # Ruta a tu base de Yu-Gi-Oh!
+    },
+    'pokemon_db': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db/pokemon.db',  # Ruta a tu base de Pokémon
     }
 }
 
@@ -136,6 +146,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Rutas de archivos estáticos (CSS, JS, imágenes fijas)
 STATICFILES_DIRS = [BASE_DIR / 'static']  # Directorio durante desarrollo
 STATIC_ROOT = BASE_DIR / 'staticfiles'   # Para producción (usado con collectstatic)
+
+# Modelo de usuario personalizado
+AUTH_USER_MODEL = 'users.CustomUser'
 
 # Archivos subidos por usuarios (fotos de perfiles y cartas)
 MEDIA_URL = '/media/'

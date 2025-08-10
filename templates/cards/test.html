@@ -1,0 +1,49 @@
+<!-- templates/cards/test.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prueba de Bases de Datos - SocialTCG</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h2 { color: #333; }
+        .card { border: 1px solid #ddd; margin: 10px 0; padding: 10px; border-radius: 8px; }
+        img { max-width: 150px; margin-top: 5px; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>✅ Conexión con bases de datos</h1>
+
+    <h2>🃏 Yu-Gi-Oh! Cards</h2>
+    {% if yugioh_cards %}
+        {% for card in yugioh_cards %}
+        <div class="card">
+            <strong>{{ card.name|default:"Sin nombre" }}</strong><br>
+            Atributo: {{ card.attribute }} | Nivel: {{ card.level }}<br>
+            ATK: {{ card.atk }} | DEF: {{ card.defs }}<br>
+            {% if card.img_url %}
+                <img src="{% url 'cards:card_image' game='yugioh' card_id=card.id %}" alt="{{ card.name }}" width="150">
+            {% endif %}
+        </div>
+        {% endfor %}
+    {% else %}
+        <p class="error">❌ No se encontraron cartas de Yu-Gi-Oh! o hubo un error.</p>
+    {% endif %}
+
+    <h2>🔥 Pokémon Cards</h2>
+    {% if pokemon_cards %}
+        {% for card in pokemon_cards %}
+        <div class="card">
+            <strong>{{ card.title|default:"Sin título" }}</strong><br>
+            Tipo: {{ card.type }}<br>
+            Número/Rareza: {{ card.number_rarity }}<br>
+            {% if card.image %}
+                <img src="{% url 'cards:card_image' game='pokemon' card_id=card.id %}" alt="{{ card.title }}" width="150">
+            {% endif %}
+        </div>
+        {% endfor %}
+    {% else %}
+        <p class="error">❌ No se encontraron cartas de Pokémon o hubo un error.</p>
+    {% endif %}
+</body>
+</html>
